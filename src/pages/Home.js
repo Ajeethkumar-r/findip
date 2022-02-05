@@ -23,7 +23,7 @@ const Home = () => {
   async function fetchData(query) {
     try {
       const response = await axios.get(
-        `https://geo.ipify.org/api/v1?apiKey=at_LkuyHSIH0HH8BFBgA5b5EtpBLVfxL&${query}=${value}`
+        `https://geo.ipify.org/api/v1?apiKey=&{IPIFY_KEY}&${query}=${value}`
       );
       console.log(response.data);
       setData(response.data);
