@@ -14,7 +14,6 @@ const Login = ({ verify }) => {
       onSuccess: (payload) => {
         setLogin(true);
         // TODO: save to authorize
-        console.log(payload.verification_token);
         localStorage.setItem('vt', payload.verification_token);
         payload.verification_token !== '' ? navigate('/home') : navigate('/');
       },

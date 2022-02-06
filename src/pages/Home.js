@@ -26,7 +26,6 @@ const Home = () => {
       const response = await axios.get(
         `https://geo.ipify.org/api/v1?apiKey=${IPIFY_KEY}&${query}=${value}`
       );
-      console.log(response.data);
       setData(response.data);
     } catch (error) {
       console.log(error);
