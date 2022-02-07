@@ -1,4 +1,4 @@
-Visit Here - [Live link](https://git.heroku.com/ipws.git)
+Visit Here - [Live link](https://heroku-ipa.herokuapp.com/)
 
 # Getting Started with Create React App
 
