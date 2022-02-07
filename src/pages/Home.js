@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import Findip from './Findip';
 import axios from 'axios';
-import Maps from './Maps';
+import Findip from '../components/Findip';
+import Maps from '../components/Maps';
 
 const Home = () => {
   const [ip, setIP] = React.useState('');
