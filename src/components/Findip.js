@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 const Findip = ({
   value,
+  emg,
   setValue,
   submitHandler,
   head_address,
@@ -10,6 +11,7 @@ const Findip = ({
   timezone,
   isp_name,
 }) => {
+  const [er, setEr] = emg;
   const keyHandler = (e) => {
     if (e.keyCode === 13) submitHandler();
     return;
@@ -26,7 +28,7 @@ const Findip = ({
     <div className='flex h-full justify-center items-center bg-pattern 2xl:rounded-md max-w-mw mx-auto py-2'>
       <div className='items-center justify-center flex-col w-5/6 sm:space-y-6 space-y-4'>
         <div
-          className='text-center items-end mt-1 p-1 bg-amber-400  hover:bg-opacity-90 rounded w-20 cursor-pointer'
+          className='text-center items-end mt-2 px-1 py-[2px]  bg-amber-400  hover:bg-opacity-90 rounded w-20 cursor-pointer'
           onClick={() => logoutHandler()}
         >
           Logout
@@ -59,6 +61,19 @@ const Findip = ({
             </svg>
           </span>
         </div>
+        <span
+          className={`${
+            er ? 'block' : 'hidden'
+          } items-center justify-center absolute -top-1 right-2 text-white bg-red-600 p-2 text-xs rounded-md w-3/6 text-center mx-auto`}
+        >
+          Please Enter correct IPAddress/Domain
+          <div
+            className='rounded border-2 px-1  m-0  absolute top-1 right-2 bg-white text-red-600 cursor-pointer'
+            onClick={() => er && setEr(!er)}
+          >
+            x
+          </div>
+        </span>
 
         <div className='space-y-1 p-6 sm:px-0 sm:space-y-0 sm:flex justify-between text-center items-start rounded-xl bg-white z-50 '>
           <div className='font-breg text-[18px] h-full text-black text-opacity-80 sm:text-2xl  md:text-left sm:w-min mx-auto'>

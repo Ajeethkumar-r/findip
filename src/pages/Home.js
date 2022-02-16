@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 const Home = () => {
   const [errmsg, setErrmsg] = React.useState(false);
   const [ip, setIP] = React.useState('');
-  const IPIFY_KEY = 'at_LkuyHSIH0HH8BFBgA5b5EtpBLVfxL';
+  const IPIFY = 'at_LkuyHSIH0HH8BFBgA5b5EtpBLVfxL';
 
   const at = localStorage.getItem('vt');
 
@@ -24,9 +24,10 @@ const Home = () => {
   const [value, setValue] = React.useState(ip);
 
   async function fetchData(query) {
+    setErrmsg(true);
     try {
       const response = await axios.get(
-        `https://geo.ipify.org/api/v1?apiKey=${IPIFY_KEY}&${query}=${value}`
+        `https://geo.ipify.org/api/v1?apiKey=${IPIFY}&${query}=${value}`
       );
       setData(response.data);
     } catch (error) {
@@ -39,13 +40,13 @@ const Home = () => {
       /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(
         value
       )
-    )
-      fetchData('ipAddress');
-    else if (
+    ) {
+      fetchData('ipAddress') && setErrmsg(false);
+    } else if (
       /[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+/.test(value)
-    )
-      fetchData('domain');
-    else alert('please enter correct access point');
+    ) {
+      fetchData('domain') && setErrmsg(false);
+    } else setErrmsg(!errmsg);
   };
 
   const submitHandler = async () => {
@@ -58,7 +59,7 @@ const Home = () => {
         <div>
           <Findip
             value={value}
-            //  emg={emg}
+            emg={[errmsg, setErrmsg]}
             validate={'pls'}
             setValue={setValue}
             submitHandler={submitHandler}
@@ -79,10 +80,10 @@ const Home = () => {
       </div>
     </>
   ) : (
-    <p className='bg-black bg-opacity-70 text-white text-2xl font-bold flex justify-center h-screen items-center'>
+    <p className='bg-blue-500  text-white text-2xl font-bold flex justify-center h-screen items-center'>
       {' '}
-      Please Login First{' '}
-      <Link to='/' className='text-base px-2 underline text-blue-400'>
+      Please Login First 🧐
+      <Link to='/' className='text-base px-2 underline text-gray-200'>
         login
       </Link>
     </p>
