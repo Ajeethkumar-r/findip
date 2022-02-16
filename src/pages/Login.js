@@ -13,13 +13,11 @@ const Login = ({ verify }) => {
       apiKey: API_KEY,
       onSuccess: (payload) => {
         setLogin(true);
-        // TODO: save to authorize
         localStorage.setItem('vt', payload.verification_token);
         payload.verification_token !== '' ? navigate('/home') : navigate('/');
       },
-      onFailure: (payload) => {
+      onFailure: () => {
         setLogin(false);
-        console.log(payload);
         window.alert('Login failed');
       },
     };

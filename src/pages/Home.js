@@ -2,8 +2,10 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 import Findip from '../components/Findip';
 import Maps from '../components/Maps';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
+  const [errmsg, setErrmsg] = React.useState(false);
   const [ip, setIP] = React.useState('');
   const IPIFY_KEY = 'at_LkuyHSIH0HH8BFBgA5b5EtpBLVfxL';
 
@@ -28,7 +30,7 @@ const Home = () => {
       );
       setData(response.data);
     } catch (error) {
-      console.log(error);
+      <Findip er={error} />;
     }
   }
 
@@ -43,39 +45,47 @@ const Home = () => {
       /[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+/.test(value)
     )
       fetchData('domain');
-    else setValue('');
+    else alert('please enter correct access point');
   };
 
   const submitHandler = async () => {
-    validate(value);
+    value !== '' ? validate(value) : alert('Please enter a value');
   };
 
-  return (
-    at && (
-      <>
-        <div className='h-screen'>
-          <div>
-            <Findip
-              value={value}
-              setValue={setValue}
-              submitHandler={submitHandler}
-              head='Ip Address'
-              head_address={data?.ip}
-              loc='Location'
-              loc_region={data?.location?.region}
-              loc_city={data?.location?.city}
-              time='Timezone'
-              timezone={data?.location?.timezone}
-              isp='ISP'
-              isp_name={data?.isp}
-            />
-          </div>
-          <div className=''>
-            <Maps data={data} />
-          </div>
+  return at ? (
+    <>
+      <div className='h-screen'>
+        <div>
+          <Findip
+            value={value}
+            //  emg={emg}
+            validate={'pls'}
+            setValue={setValue}
+            submitHandler={submitHandler}
+            head='Ip Address'
+            head_address={data?.ip}
+            loc='Location'
+            loc_region={data?.location?.region}
+            loc_city={data?.location?.city}
+            time='Timezone'
+            timezone={data?.location?.timezone}
+            isp='ISP'
+            isp_name={data?.isp}
+          />
         </div>
-      </>
-    )
+        <div className=''>
+          <Maps data={data} />
+        </div>
+      </div>
+    </>
+  ) : (
+    <p className='bg-black bg-opacity-70 text-white text-2xl font-bold flex justify-center h-screen items-center'>
+      {' '}
+      Please Login First{' '}
+      <Link to='/' className='text-base px-2 underline text-blue-400'>
+        login
+      </Link>
+    </p>
   );
 };
 

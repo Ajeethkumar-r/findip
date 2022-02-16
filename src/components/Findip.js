@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 const Findip = ({
   value,
   setValue,
@@ -13,13 +14,26 @@ const Findip = ({
     if (e.keyCode === 13) submitHandler();
     return;
   };
+
+  let navigate = useNavigate();
+  const logoutHandler = () => {
+    localStorage.removeItem('vt');
+
+    !localStorage.key('vt') && navigate('/');
+  };
+
   return (
-    <div className='flex h-full justify-center items-center bg-pattern 2xl:rounded-md max-w-mw mx-auto'>
+    <div className='flex h-full justify-center items-center bg-pattern 2xl:rounded-md max-w-mw mx-auto py-2'>
       <div className='items-center justify-center flex-col w-5/6 sm:space-y-6 space-y-4'>
+        <div
+          className='text-center items-end mt-1 p-1 bg-amber-400  hover:bg-opacity-90 rounded w-20 cursor-pointer'
+          onClick={() => logoutHandler()}
+        >
+          Logout
+        </div>
         <div className='font-sreg my-4 sm:my-6 text-xl sm:text-3xl text-white  text-center px-2'>
           IP Address Trakcer
         </div>
-        {/*TODO: SEARCHBAR */}
         <div className=' flex items-center justify-center sm:w-3/6 sm:px-8 mx-auto'>
           <input
             type='text'
